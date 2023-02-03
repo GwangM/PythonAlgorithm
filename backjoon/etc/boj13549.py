@@ -1,29 +1,41 @@
 from collections import deque
 n,k=map(int,input().split())
-#걸을 때만 시간이 들고 순간이동은 시간이 들지 않음
-#x+a 2x+2a 4x+4a
-#2x+a 4x+2a
+
 if n>=k:
   print(n-k)
 else:
-  distance=k-n
-  arr_k=deque()
-  arr_k.append(k)
-  while arr_k:
-    k=arr_k.popleft()
-    if k%2==0:
-      k//=2
-      if distance>abs(k-n):
-        distance=abs(k-n)
-        arr_k.append(k)
-    else:
-      k1=(k+1)//2
-      k2=(k-1)//2
-      if distance>abs(k1-n):
-        distance=abs(k1-n)
-        arr_k.append(k1)
-      if distance>abs(k2-n):
-        distance=abs(k2-n)
-        arr_k.append(k2)
+  distance=0
+  visited=[False]*100001
+  arr_n=deque([(n,distance)])
+  visited[n]=True
 
-  print(distance)
+  while arr_n:
+    n,distance=arr_n.popleft()
+#    print(distance)
+    if n==k:
+      print(distance)
+      break
+    temp=2*n
+    if temp!=0:
+     while(temp<=100000):
+      if not visited[temp]:
+        if temp==k:
+          print(distance)
+          break
+        arr_n.append([temp,distance])
+        visited[temp]=True
+      temp*=2
+    if temp==k:
+      break
+    if n>1 and not visited[n-1]:
+      if n-1==k:
+        print(distance+1)
+        break
+      visited[n-1]=True
+      arr_n.append([n-1,distance+1])
+    if n!=100000 and not visited[n+1]:
+      if n+1==k:
+        print(distance+1)
+        break
+      visited[n+1]=True
+      arr_n.append([n+1,distance+1])
