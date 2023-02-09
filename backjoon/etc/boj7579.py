@@ -1,27 +1,21 @@
-import heapq
 import sys
 input=sys.stdin.readline
 n,m=map(int,input().split())
-byte=list(map(int,input().split()))
-cost=list(map(int,input().split()))
-#byte/cost 낮으면 안좋음
+byte=[0]+list(map(int,input().split()))
+cost=[0]+list(map(int,input().split()))
 
-d=[([0]*(10001))for _ in range(n)]
-
-for i in range(n):
-  for j in range(70):
-    b=byte[i]
-    c=cost[i]
-    if i==0:
-      d[i][j]+=byte[i]
-    elif d[i-1][j]<m:
-      d[i][j]=d[i-1][j]+byte[i]
+d=[([0]*(10001))for _ in range(n+1)]
+result=sum(cost)
+#배낭문제처럼 i는 프로그램 = n, j는 비용
+for i in range(1,n+1):
+  b=byte[i]
+  c=cost[i]
+  for j in range(10001):
+    if j<c:
+      d[i][j]=d[i-1][j]
     else:
-      d[i][j]=max(d[i-1][j],d[i-1][j-c]+b)
-min=float("inf")
-print(d)
-for i in range(n):
-  for j in range(70):
-    if d[i][j]>=m and min>j:
-      min=j
-print(min)
+      d[i][j]=max(d[i-1][j-c]+b,d[i-1][j])
+    if d[i][j]>=m:
+      result=min(result,j)
+
+print(result)
