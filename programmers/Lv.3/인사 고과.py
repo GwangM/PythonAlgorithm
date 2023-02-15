@@ -7,7 +7,7 @@ def solution(scores):
     le=len(scores)
     i=0
     while i<le:
-      if scores[i][0]!=temp1:
+      if scores[i][0]!=temp1 and scores[i][1]>temp2:
         temp1=scores[i][0]
         temp2=scores[i][1]
         j=i+1
@@ -15,7 +15,8 @@ def solution(scores):
           if temp1>scores[j][0] and temp2>scores[j][1]:
             scores.pop(j)
             le-=1
-          j+=1
+          else:
+            j+=1
       i+=1
     if temp in scores:
       scores=list(map(sum,scores))
@@ -26,4 +27,3 @@ def solution(scores):
       return -1
 
 
-print(solution([[2,2],[1,4],[3,2],[3,2],[2,1]]))
