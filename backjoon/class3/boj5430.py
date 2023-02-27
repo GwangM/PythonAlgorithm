@@ -6,7 +6,11 @@ t=int(input())
 for _ in range(t):
   p=input()
   n=input()
-  x=deque(input()[1:-2].split(','))
+  if n=="0\n":
+    x=deque()
+    temp=input()
+  else:
+    x=deque(input()[1:-2].split(','))
   #split을 이용하여 , 기준으로 분리하고 join으로 ,를 나중에 넣는다.
   front=True
   er=False
