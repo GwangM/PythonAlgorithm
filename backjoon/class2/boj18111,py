@@ -1,0 +1,14 @@
+import sys
+input=sys.stdin.readline
+
+n,m,b=map(int,input().split())
+arr=[0 for i in range(257)]
+for _ in range(n):
+  temp=map(int,input().split())
+  for i in temp:
+    arr[i]+=1
+start=0
+end=256
+while(True):
+  mid=(start+end)//2
+  
