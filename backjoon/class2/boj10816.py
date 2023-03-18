@@ -9,4 +9,5 @@ for i in arr:
     temp[i]+=1
 arr1=[]
 for i in search:
-    print(temp[i],end=' ')
+    arr1.append(str(temp[i]))
+print(' '.join(arr1))
