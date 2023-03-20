@@ -32,9 +32,9 @@ def dfs(arr,start):
         temp=queue.pop()        
         if temp not in visited:
             visited.append(temp)
-            if arr:
-              arr[temp].reverse()
-              queue.extend(arr[temp])
+            
+            arr[temp].reverse()
+            queue.extend(arr[temp])
             print(temp,end=' ')
 arr2=copy.deepcopy(arr)
 dfs(arr,v)
