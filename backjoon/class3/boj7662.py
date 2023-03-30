@@ -18,19 +18,14 @@ for _ in range(t):
         elif le==0:
             continue 
         elif n==1:
-            aaa,temp_=heapq.heappop(reverse)
-            for i in range(le-1,0,-1):
-                if arr[i]==temp_:
-                    arr.pop(i)
-                    break
+            heapq.heappop(reverse)
             le-=1
         else:
-            temp_=heapq.heappop(arr)
-            for i in range(le-1,0,-1):
-                if reverse[i][1]==temp_:
-                    reverse.pop(i)
-                    break
+            heapq.heappop(arr)
             le-=1
+        if le==0:
+            arr.clear()
+            reverse.clear()
     if le==0:
         print("EMPTY")
     else:
