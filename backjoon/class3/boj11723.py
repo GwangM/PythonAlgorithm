@@ -1,33 +1,23 @@
 import sys
-import copy
+
 input=sys.stdin.readline
 n=int(input())
-arr=[]
-all=[i for i in range(1,21)]
+
+s=0
 for _ in range(n):
-    a=input().rstrip().split()
-    if len(a)==2:
-        m=a[1]
-        a=a[0]
-        m=int(m)
-    if a=='add':
-        if m not in arr:
-          arr.append(m)
-    elif a=='remove':
-        if m in arr:
-          arr.remove(m)
-    elif a=='check':
-        if m in arr:
-            print(1)            
+    a=input().split()
+    if a[0]=='add':
+        s=s|(1<<int(a[1]))
+    elif a[0]=='remove':
+        s=s&~(1<<int(a[1]))
+    elif a[0]=='check':
+        if s&(1<<int(a[1]))==1<<int(a[1]):
+            print(1)
         else:
             print(0)
-    elif a=='toggle':
-        if m in arr:
-            arr.remove(m)
-        else:
-            arr.append(m)
-    elif a=='all':
-        del arr;
-        arr=copy.deepcopy(all)
+    elif a[0]=='toggle':
+        s=s^(1<<int(a[1]))
+    elif a[0]=='all':
+        s=(1<<21)-1
     else:
-        arr=[]
+        s=0
