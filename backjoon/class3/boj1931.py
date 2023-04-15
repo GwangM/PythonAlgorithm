@@ -9,4 +9,20 @@ for i in range(n):
   arr[i] = (start, end)
   
 arr.sort()
-print(arr)
+result = 0
+temp1 = -1
+temp2 = -1
+
+for i, j in arr:
+  if temp1 == -1:
+    temp1 = i
+    temp2 = j
+    result += 1
+  elif i >= temp2:
+    temp1 = i
+    temp2 = j
+    result+=1
+  elif j < temp2:
+    temp2 = j
+    
+print(result)
