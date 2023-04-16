@@ -1,32 +1,39 @@
 import sys
 import heapq
+from collections import defaultdict
 
 input=sys.stdin.readline
 t=int(input())
 for _ in range(t):
     k=int(input())
-    le=0
     arr=[]
-    reverse=[]
+    reverse = []
+    n_dict=defaultdict(int)
     for _ in range(k):
         o,n=input().split()
         n=int(n)
-        if o=='I':
+        if o == 'I':
+            n_dict[n]+=1
             heapq.heappush(arr,n)
-            heapq.heappush(reverse,(-n,n))
-            le+=1
-        elif le==0:
-            continue 
-        elif n==1:
-            heapq.heappop(reverse)
-            le-=1
+            heapq.heappush(reverse,-n)
+        elif n == 1:
+            while (reverse):
+                max_num=-heapq.heappop(reverse)
+                if n_dict[max_num] != 0:
+                    n_dict[max_num] -= 1
+                    break
         else:
-            heapq.heappop(arr)
-            le-=1
-        if le==0:
-            arr.clear()
-            reverse.clear()
-    if le==0:
-        print("EMPTY")
+            while(arr):
+                min_num=heapq.heappop(arr)
+                if n_dict[min_num] != 0:
+                    n_dict[min_num] -= 1
+                    break
+    while (reverse and n_dict[-reverse[0]] == 0):
+        heapq.heappop(reverse)
+    while (arr and n_dict[arr[0]] == 0):
+        heapq.heappop(arr)
+    
+    if arr:
+        print(-reverse[0], arr[0])
     else:
-        print(reverse[0][1],arr[0])
+        print("EMPTY")
